@@ -1,7 +1,19 @@
 sotrudniki = []
+admin_password = 'admin'
+
+def add_employee():
+    print("\nВвод нового сотрудника ")
+    fio = input("ФИО: ")
+    dni = int(input("Количество рабочих дней: "))
+    chasy = float(input("Количество часов: "))
+    stavka = float(input("Ставка в час: "))
+    zp = chasy * stavka
+    sotrudniki.append([fio, dni, chasy, stavka, zp])
+    print(f"Зарплата: {zp}")
+    print("Сотрудник добавлен!")
 
 while True:
-    print("1. Добавить сотрудника и посчитать зарплату")
+    print("1. Добавить сотрудника и посчитать зарплату (Только администратор)")
     print("2. Показать список всех сотрудников")
     print("3. Показать статистику (средние значения)")
     print("4. Кредитный калькулятор")
@@ -11,28 +23,24 @@ while True:
     vybor = input("Ваш выбор: ")
     
     if vybor == "1":
-        print("\nВвод нового сотрудника ")
-        fio = input("ФИО: ")
-        dni = int(input("Количество рабочих дней: "))
-        chasy = float(input("Количество часов: "))
-        stavka = float(input("Ставка в час: "))
-        zp = chasy * stavka
-        sotrudniki.append([fio, dni, chasy, stavka, zp])
-        print(f"Зарплата: {zp}")
-        print("Сотрудник добавлен!")
+        password = input("Введите пароль администратора: ")
+        if password != admin_password:
+            print("Доступ запрещён!")
+        else:
+            add_employee()
     
     elif vybor == "2":
         if len(sotrudniki) == 0:
             print("\nСписок пуст!")
         else:
-            print("\n Все сотрудники ")
+            print("\nВсе сотрудники ")
             for i, zap in enumerate(sotrudniki, 1):
-                print(f"\nСотрудник #{i}:")
+                print(f"\nСотрудник №{i}:")
                 print(f"  ФИО: {zap[0]}")
-                print(f"  Дней: {zap[1]}")
-                print(f"  Часов: {zap[2]}")
-                print(f"  Ставка: {zap[3]}")
-                print(f"  Зарплата: {zap[4]}")
+                print(f"  Рабочих дней: {zap[1]}")
+                print(f"  Отработанных часов: {zap[2]}")
+                print(f"  Ставка в час: {zap[3]} руб./час")
+                print(f"  Зарплата: {zap[4]:.2f} руб.")
     
     elif vybor == "3":
         if len(sotrudniki) == 0:
@@ -53,8 +61,8 @@ while True:
             
             print(f"Всего сотрудников: {kolvo}")
             print(f"Среднее количество рабочих дней: {sred_dni:.1f}")
-            print(f"Среднее количество часов: {sred_chasy:.1f}")
-            print(f"Средняя зарплата: {sred_zp:.1f}")
+            print(f"Среднее количество отработанных часов: {sred_chasy:.1f}")
+            print(f"Средняя заработная плата: {sred_zp:.2f} руб.")
     
     elif vybor == "4":
         print("\nКредитный калькулятор")
@@ -74,7 +82,7 @@ while True:
         print(f"\nЕжемесячный платёж: {platezh:.2f}\n")
     
     elif vybor == "5":
-        print("\n Расчёт минимального срока кредита ")
+        print("\nРасчёт минимального срока кредита")
         try:
             amount = float(input("Сумма кредита: "))
             annual_rate = float(input("Годовая процентная ставка (%): "))
