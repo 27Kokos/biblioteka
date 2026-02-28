@@ -23,7 +23,7 @@ while True:
     vybor = input("Ваш выбор: ")
     
     if vybor == "1":
-        password = input("Введите пароль администратора: ")
+        password = print("Введите пароль администратора: ")
         if password != admin_password:
             print("Доступ запрещён!")
         else:
