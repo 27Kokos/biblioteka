@@ -1,5 +1,5 @@
 sotrudniki = []
-admin_password = 'admin'
+admin_password = 'adminΩ'
 
 def add_employee():
     print("\nВвод нового сотрудника ")
